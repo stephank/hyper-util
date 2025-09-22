@@ -239,6 +239,11 @@ where
         ResponseFuture::new(self.clone().send_request(req, pool_key))
     }
 
+    /// Disconnects all idle connections.
+    pub fn clear_idle_connections(&self) {
+        self.pool.clear_idle();
+    }
+
     async fn send_request(
         self,
         mut req: Request<B>,

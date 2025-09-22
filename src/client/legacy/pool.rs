@@ -158,6 +158,12 @@ impl<T, K: Key> Pool<T, K> {
             inner.idle_interval_ref = Some(tx);
         }
     }
+
+    pub(crate) fn clear_idle(&self) {
+        let mut inner = self.inner.as_ref().unwrap().lock().unwrap();
+        inner.idle = HashMap::new();
+        inner.idle_interval_ref = None;
+    }
 }
 
 impl<T: Poolable, K: Key> Pool<T, K> {
